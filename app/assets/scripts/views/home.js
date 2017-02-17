@@ -216,22 +216,6 @@ module.exports = React.createClass({
     .then((response) => response.json())
     .then((data) => {
       let presignedUrl = data.url;
-      // $.ajax({
-      //   url: presignedUrl,
-      //   type: 'PUT',
-      //   data: file.data,
-      //   processData: false,
-      //   contentType: true,
-      //   success: function () {
-      //     console.log('Uploaded data successfully.');
-      //   }
-      // });
-      console.log(presignedUrl);
-      console.log(file.data.type);
-
-      presignedUrl = presignedUrl.substring(0, presignedUrl.length - 10);
-
-      // });
       $.ajax({
         xhr: function () {
           let xhr = new window.XMLHttpRequest();
@@ -251,7 +235,7 @@ module.exports = React.createClass({
         data: file.data,
         processData: false,
         contentType: false,
-        // contentType: false,: file.data.type,
+        // contentType: file.data.type,
         type: 'PUT',
         error: (err) => {
           return callback(err);
