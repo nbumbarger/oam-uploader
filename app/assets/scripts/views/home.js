@@ -215,22 +215,29 @@ module.exports = React.createClass({
     })
     .then((response) => response.json())
     .then((data) => {
-      const presignedUrl = data.url;
+      let presignedUrl = data.url;
       // $.ajax({
       //   url: presignedUrl,
       //   type: 'PUT',
       //   data: file.data,
       //   processData: false,
-      //   contentType: false,
+      //   contentType: true,
       //   success: function () {
       //     console.log('Uploaded data successfully.');
       //   }
+      // });
+      console.log(presignedUrl);
+      console.log(file.data.type);
+
+      presignedUrl = presignedUrl.substring(0, presignedUrl.length - 10);
+
       // });
       $.ajax({
         xhr: function () {
           let xhr = new window.XMLHttpRequest();
           xhr.upload.addEventListener('progress', function (evt) {
             if (evt.lengthComputable) {
+              console.log(evt.loaded);
               return callback(null, {
                 type: 'progress',
                 fileName: file.data.name,
@@ -244,6 +251,7 @@ module.exports = React.createClass({
         data: file.data,
         processData: false,
         contentType: false,
+        // contentType: false,: file.data.type,
         type: 'PUT',
         error: (err) => {
           return callback(err);
